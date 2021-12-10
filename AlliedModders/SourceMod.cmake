@@ -18,7 +18,7 @@ target_include_directories(smsdk INTERFACE
     )
 target_link_libraries(smsdk INTERFACE amtl)
 
-add_library(libudis86 STATIC 
+add_library(libudis86 STATIC
     ${SOURCEMOD_PATH}/public/libudis86/decode.c
     ${SOURCEMOD_PATH}/public/libudis86/decode.h
     ${SOURCEMOD_PATH}/public/libudis86/extern.h
@@ -35,15 +35,22 @@ add_library(libudis86 STATIC
 )
 target_include_directories(libudis86 PUBLIC ${SOURCEMOD_PATH}/public)
 
+if (NOT WIN32)
+    target_compile_options(libudis86 PRIVATE -Wno-implicit-function-declaration)
+endif()
+
 add_library(asm STATIC 
     ${SOURCEMOD_PATH}/public/asm/asm.c
     ${SOURCEMOD_PATH}/public/asm/asm.h
 )
 target_link_libraries(asm PRIVATE libudis86)
 target_include_directories(asm PUBLIC ${SOURCEMOD_PATH}/public)
+if (MSVC)
+    target_compile_options(asm PRIVATE /wd4018)
+endif()
 
 add_library(CDetour INTERFACE)
-target_sources(CDetour INTERFACE 
+target_sources(CDetour INTERFACE
     ${SOURCEMOD_PATH}/public/CDetour/detourhelpers.h
     ${SOURCEMOD_PATH}/public/CDetour/detours.cpp
     ${SOURCEMOD_PATH}/public/CDetour/detours.h

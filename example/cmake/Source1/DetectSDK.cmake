@@ -139,6 +139,8 @@ if (NOT SDK_USE_VENDOR)
     # Then, here you are.
     if (DEFINED ENV{${HL2SDK_ENVVAR}})
         set(HL2SDK_PATH_STRING $ENV{${HL2SDK_ENVVAR}})
+        # Path of windows are all '\'
+        # We need to make sure that everything is under '/'
         string(REPLACE "\\" "/" HL2SDK_PATH_STRING "${HL2SDK_PATH_STRING}")
     else()
         message(FATAL_ERROR "You want to use environment variable but it does not exist. Check environment variable: ${HL2SDK_ENVVAR}")

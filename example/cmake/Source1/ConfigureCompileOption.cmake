@@ -45,20 +45,31 @@ if(NOT WIN32)
         add_link_options(-m32)
     endif()
 
-    add_compile_options(-Wno-narrowing -Wno-register -O3 -pipe -Wno-uninitialized -Wno-unused 
-    -Wno-switch -msse -fPIC -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-unused-result -Wno-ignored-attributes
-    -fno-strict-aliasing
-    )
-    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_compile_options(-fvisibility=hidden -fvisibility-inlines-hidden -Wno-delete-non-virtual-dtor)
-    endif()
+    # add_compile_options will add these options to all related compilers,
+    # for example, if gcc then add to both gcc and g++, clang also.
+    # And...If we do such thing, if the compiler does not manipulate this case, 
+    # it will throw a warning to us, and you don't want to see these warnings.
+    # Again, if you don't mind then you will see a massive of shit.
+    # So we need to add compile options separatly.
     if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-        add_compile_options(-mfpmath=sse -Wno-volatile)
+        # CMAKE_CXX_FLAGS will add flags to C++ compilers.
+        # CMAKE_C_FLAGS do such things, but C.
+        set(CMAKE_CXX_FLAGS "-Wno-register -Wno-non-virtual-dtor -Wno-overloaded-virtual ${CMAKE_CXX_FLAGS}")
+        set(CMAKE_CXX_FLAGS "-fvisibility-inlines-hidden -Wno-delete-non-virtual-dtor ${CMAKE_CXX_FLAGS}")
+    endif()
+
+    add_compile_options(-Wno-narrowing -O3 -pipe -Wno-uninitialized -Wno-unused -Wno-switch -msse -fPIC 
+    -Wno-unused-result -Wno-ignored-attributes -fno-strict-aliasing -fvisibility=hidden
+    )
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        set(CMAKE_CXX_FLAGS "-Wno-volatile ${CMAKE_CXX_FLAGS}")
+        add_compile_options(-mfpmath=sse)
     endif()
     if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         add_compile_options(-Wno-implicit-int-float-conversion -Wno-tautological-overlap-compare -Wno-deprecated-volatile
         -Wno-implicit-exception-spec-mismatch -Wno-expansion-to-defined -Wno-inconsistent-missing-override -Wno-deprecated-register
         -Wno-ambiguous-reversed-operator -Wno-tautological-undefined-compare -Wno-enum-compare-switch -Wno-c++11-narrowing
+        -fvisibility-inlines-hidden -Wno-delete-non-virtual-dtor -Wno-register -Wno-non-virtual-dtor -Wno-overloaded-virtual
         )
     endif()
 endif()

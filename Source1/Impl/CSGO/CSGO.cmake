@@ -233,4 +233,4 @@ target_include_directories(source1_sdk INTERFACE
     ${HL2SDK_PATH}/public/game/server
     ${HL2SDK_PATH}/public/game/shared
 )
-target_link_libraries(source1_sdk INTERFACE tier0 tier1 vstdlib mathlib interfaces)
+target_link_libraries(source1_sdk INTERFACE tier0 tier1 vstdlib mathlib interfaces hl2sdk_protobuf_csgo)

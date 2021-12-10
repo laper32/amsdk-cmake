@@ -35,6 +35,10 @@ add_library(libudis86 STATIC
 )
 target_include_directories(libudis86 PUBLIC ${SOURCEMOD_PATH}/public)
 
+if (NOT WIN32)
+    target_compile_options(libudis86 PRIVATE -Wno-implicit-function-declaration)
+endif()
+
 add_library(asm STATIC 
     ${SOURCEMOD_PATH}/public/asm/asm.c
     ${SOURCEMOD_PATH}/public/asm/asm.h
