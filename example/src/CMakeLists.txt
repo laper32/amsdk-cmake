@@ -6,5 +6,5 @@ target_include_directories(Example PUBLIC
     ./
 )
 
-target_link_libraries(Example PUBLIC smsdk_ext)
+target_link_libraries(Example PUBLIC amsdk)
 set_target_properties(Example PROPERTIES PREFIX "" SUFFIX ".ext.2.csgo${HL2SDK_LIB_SHARED_EXT}")
