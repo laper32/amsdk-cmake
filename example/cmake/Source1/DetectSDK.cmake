@@ -136,6 +136,10 @@ if (NOT SDK_USE_VENDOR)
     set(HL2SDK_ENVVAR "hl2sdk-${HL2SDK_ENGINE_NAME}")
     string(TOUPPER "${HL2SDK_ENVVAR}" HL2SDK_ENVVAR)
 
+    if (NOT WIN32)
+        string(REPLACE "-" "_" HL2SDK_ENVVAR "${HL2SDK_ENVVAR}")
+    endif()
+
     # Then, here you are.
     if (DEFINED ENV{${HL2SDK_ENVVAR}})
         set(HL2SDK_PATH_STRING $ENV{${HL2SDK_ENVVAR}})
