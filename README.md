@@ -10,6 +10,8 @@ The sample can be found via here: [Teleporter](https://github.com/MoeMod/z4d)
 
 Feel free to contribute it.
 
+Check [**HERE**](https://github.com/laper32/amsdk-cmake-example) for example referencing.
+
 But, these things that you must beware:
 1. The compilation time, which will take much longer than you expected, because this is built from source.
 2. You have been assumed that you know how to use CMake, and also know how to use CMake to build project.
