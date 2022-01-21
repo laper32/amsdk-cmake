@@ -4,22 +4,14 @@
 if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     message(FATAL_ERROR "Sorry, we don't provide any support on MacOS: The arch of MacOS has been switched to ARM instead of x86, aka, we can't support it anymore.")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
-    set(HL2SDK_LIB_STATIC_EXT ".a")
-    set(HL2SDK_LIB_SHARED_EXT ".so")
-    set(HL2SDK_LIB_PREFIX "lib")
 
-    if (HL2SDK_64BIT)
+    if (TARGET_ARCH MATCHES "x64")
         set(HL2SDK_LIB_DIR ${HL2SDK_PATH}/lib/linux64)
-        set(HL2SDK_LIB_STATIC_SUFFIX "")
     else()
         set(HL2SDK_LIB_DIR ${HL2SDK_PATH}/lib/linux)
-        set(HL2SDK_LIB_STATIC_SUFFIX "_i486")
     endif()
 elseif(WIN32)
     set(HL2SDK_LIB_DIR ${HL2SDK_PATH}/lib/public)
-    set(HL2SDK_LIB_STATIC_EXT ".lib")
-    set(HL2SDK_LIB_SHARED_EXT ".dll")
-    set(HL2SDK_LIB_STATIC_SUFFIX "")
     # If have WIN64 then do further things
 endif()
 
@@ -35,16 +27,16 @@ if (WIN32)
             ${HL2SDK_PATH}/public/tier0
             ${CMAKE_CURRENT_LIST_DIR}/wrapper/msvc
             )
-    target_link_libraries(tier0 INTERFACE tier0${HL2SDK_LIB_STATIC_SUFFIX}${HL2SDK_LIB_STATIC_EXT})
+    target_link_libraries(tier0 INTERFACE tier0${LIB_STATIC_SUFFIX}${LIB_STATIC_EXT})
 else()
     target_include_directories(tier0 INTERFACE
             ${HL2SDK_PATH}/public
             ${HL2SDK_PATH}/public/tier0
             )
     if (HL2SDK_64BIT)
-        target_link_libraries(tier0 INTERFACE ${HL2SDK_LIB_PREFIX}tier0_client${HL2SDK_LIB_SHARED_EXT})
+        target_link_libraries(tier0 INTERFACE ${LIB_PREFIX}tier0_client${LIB_SHARED_EXT})
     else()
-        target_link_libraries(tier0 INTERFACE ${HL2SDK_LIB_PREFIX}tier0${HL2SDK_LIB_SHARED_EXT})
+        target_link_libraries(tier0 INTERFACE ${LIB_PREFIX}tier0${LIB_SHARED_EXT})
     endif()
 endif()
 
@@ -128,12 +120,12 @@ target_include_directories(vstdlib INTERFACE
         ${HL2SD_PATH}/public/vstdlib
         )
 if (WIN32)
-    target_link_libraries(vstdlib INTERFACE vstdlib${HL2SDK_LIB_STATIC_SUFFIX}${HL2SDK_LIB_STATIC_EXT})
+    target_link_libraries(vstdlib INTERFACE vstdlib${LIB_STATIC_SUFFIX}${LIB_STATIC_EXT})
 else()
     if (HL2SDK_64BIT)
-        target_link_libraries(vstdlib INTERFACE ${HL2SDK_LIB_PREFIX}vstdlib_client${HL2SDK_LIB_SHARED_EXT})
+        target_link_libraries(vstdlib INTERFACE ${LIB_PREFIX}vstdlib_client${LIB_SHARED_EXT})
     else()
-        target_link_libraries(vstdlib INTERFACE ${HL2SDK_LIB_PREFIX}vstdlib${HL2SDK_LIB_SHARED_EXT})
+        target_link_libraries(vstdlib INTERFACE ${LIB_PREFIX}vstdlib${LIB_SHARED_EXT})
     endif()
 endif()
 
@@ -233,4 +225,5 @@ target_include_directories(source1_sdk INTERFACE
     ${HL2SDK_PATH}/public/game/server
     ${HL2SDK_PATH}/public/game/shared
 )
+
 target_link_libraries(source1_sdk INTERFACE tier0 tier1 vstdlib mathlib interfaces hl2sdk_protobuf_csgo)

@@ -1,0 +1,6 @@
+add_library(source_sdk INTERFACE)
+if (SOURCE2)
+else()
+	include(${CMAKE_CURRENT_LIST_DIR}/1/Main.cmake)
+	target_link_libraries(source_sdk INTERFACE source1_sdk)
+endif()

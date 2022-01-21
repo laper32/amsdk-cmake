@@ -8,7 +8,7 @@
 
 # Different SDK may have Different includes
 if (HL2SDK_ENGINE_NAME MATCHES "dota")
-    message(FATAL_ERROR "What are you expecting? DOTA2 has already source 2! And it has grow up already!")
+    message(FATAL_ERROR "Not provided.")
 elseif (HL2SDK_ENGINE_NAME MATCHES "csgo")
     include(${CMAKE_CURRENT_LIST_DIR}/CSGO/CSGO.cmake)
 elseif (HL2SDK_ENGINE_NAME MATCHES "doi")

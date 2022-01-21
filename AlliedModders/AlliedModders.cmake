@@ -1,3 +1,7 @@
+if (NOT USE_SDK)
+	add_definitions(-DMETA_NO_HL2SDK)
+endif()
+
 # You don't want to use local folder.
 if (NOT SM_USE_VENDOR)
     if (DEFINED ENV{SOURCEMOD})
