@@ -1,4 +1,5 @@
 include(${CMAKE_CURRENT_LIST_DIR}/Global.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/CompileOption.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/AlliedModders/AlliedModders.cmake)
 
 add_library(smsdk_ext INTERFACE)
