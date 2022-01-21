@@ -2,7 +2,7 @@
 # Purpose: Configure link library
 #
 if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-    message(FATAL_ERROR "Sorry, we don't provide any support on MacOS: The arch of MacOS has been switched to ARM instead of x86, aka, we can't support it anymore.")
+    message(FATAL_ERROR "Not supported.")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 
     if (TARGET_ARCH MATCHES "x64")
