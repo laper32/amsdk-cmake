@@ -117,7 +117,7 @@ target_include_directories(mathlib PUBLIC ${HL2SDK_PATH}/public/mathlib)
 add_library(vstdlib INTERFACE)
 target_include_directories(vstdlib INTERFACE
         ${HL2SDK_PATH}/public
-        ${HL2SD_PATH}/public/vstdlib
+        ${HL2SDK_PATH}/public/vstdlib
         )
 if (WIN32)
     target_link_libraries(vstdlib INTERFACE vstdlib${LIB_STATIC_SUFFIX}${LIB_STATIC_EXT})
